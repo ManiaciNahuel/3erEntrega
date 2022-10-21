@@ -1,21 +1,70 @@
-const express = require('express');
-const app = express();
-const routerUser = require('./src/routes/user')
-const routerProduct = require('./src/routes/product')
+const express = require('express')
+const session = require('express-session')
+const cookieParser = require('cookie-parser')
+const passport = require('passport');
+const MongoStore = require('connect-mongo');
+const { routerP } = require('./src/routes/login');
+const { isAuth, auth } = require('./src/middlewares');
+const { getFailLogin } = require('./src/controllers/passport');
+const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true}
+require('dotenv').config()
+
+/* DATABASE */
+ const app = express()
 
 
-// Middlewares
+/* MIDDLEWARE */
+
+app.use(session({
+  store: MongoStore.create({
+      mongoUrl: 'mongodb+srv://Nahuel_Maniaci:nahue123@cluster0.qvotb9b.mongodb.net/new',
+      mongoOptions: advancedOptions
+  }),
+  
+  secret: 'secreto',
+  resave: false,
+  saveUninitialized: false,
+ /*  cookie: {
+      maxAge: 60000
+  } */
+}))
+
+app.use(cookieParser())
+app.use(passport.initialize());
+app.use(passport.session()); 
+app.set('view engine', 'ejs');
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use('/api/user', routerUser)
-app.use('/api/product', routerProduct)
-app.use(express.static('public'))
+app.use(routerP)
 
+routerP.get('/login', auth, getFailLogin)
+const PORT = process.env.PORT || 8080;
+const serverMode =  "FORK";
 
+/* MASTER */
+if (serverMode == "CUSTER"){
+  if (cluster.isMaster) {
+    for (let i = 0; i < numCPUs; i++){
+      cluster.fork()
+    }
+  
+    cluster.on('exit', worker => {
+      logger.info('Worker', worker.process.pid, 'died', new Date().toLocaleString());
+      cluster.fork()
+    })
+  }
+  /* LISTEN */
+  else {
+    const server = app.listen(PORT, () => {
+      console.log(`Servidor escuchando en el puerto ${PORT} - PID WORKER: ${process.pid}`)
+    })
+    server.on("error", error => logger.error(`Error en servidor: ${error}`))
+  }
 
-
-// Running server
-const PORT = process.env.PORT || 8080
-
-const server = app.listen(PORT, () => console.log("server running"))
-server.on('error', error => console.log(error))
+}else {
+  const server = app.listen(PORT, () => {
+    console.log(`Servidor escuchando en el puerto ${PORT} - PID WORKER: ${process.pid}`)
+  })
+  server.on("error", error => logger.error(`Error en servidor: ${error}`))
+}

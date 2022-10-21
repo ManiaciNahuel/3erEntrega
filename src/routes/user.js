@@ -1,13 +1,9 @@
 const { Router } = require('express');
 const routerUser = Router()
-const { middleware1, middleware2 } = require('../middlewares')
-const { getAll } = require('../controllers/user')
+const { getAll } = require('../controllers/passport')
 
-// routerUser.use(middleware2)
 
-routerUser.get('/', getAll)
-
-routerUser.post('/', middleware1, middleware2, (req, res) => {
+routerUser.post('/', (req, res) => {
     res.json({ msg: 'Post user'})
 })
 
