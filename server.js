@@ -5,7 +5,7 @@ const passport = require('passport');
 const MongoStore = require('connect-mongo');
 const { routerP } = require('./src/routes/login');
 const { isAuth, auth } = require('./src/middlewares');
-const { getFailLogin } = require('./src/controllers/passport');
+const { getFailLogin, getIndex } = require('./src/controllers/passport');
 const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true}
 require('dotenv').config()
 
@@ -37,7 +37,7 @@ app.set('view engine', 'ejs');
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(routerP)
-
+routerP.get('/', auth, getIndex)
 routerP.get('/login', auth, getFailLogin)
 const PORT = process.env.PORT || 8080;
 const serverMode =  "FORK";

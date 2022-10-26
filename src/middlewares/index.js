@@ -9,20 +9,24 @@ passport.use('register', new LocalStrategy({
   passReqToCallback: true
 }, (req, username, password, done) => {
 
-  const { direccion } = req.body
+  const { direccion, edad, avatar, telefono } = req.body
 
   const usuario = usuarios.find(usuario => usuario.username == username)
   if (usuario) {
-    return done('already registered')
+    return done('already registered') || console.log("Redirect");
   }
 
   const user = {
     username,
     password,
     direccion,
+    edad, 
+    avatar, 
+    telefono 
   }
+  
   usuarios.push(user)
-
+  //console.log(user);
   return done(null, user)
 }));
 
@@ -39,14 +43,15 @@ passport.use('login', new LocalStrategy((username, password, done) => {
   }
 
   user.contador = 0
+  //console.log(user);
   return done(null, user);
 }));
 
-passport.serializeUser(function (user, done) {
+passport.serializeUser((user, done) => {
   done(null, user.username);
 });
 
-passport.deserializeUser(function (username, done) {
+passport.deserializeUser((username, done) => {
   const usuario = usuarios.find(usuario => usuario.username == username)
   done(null, usuario);
 });
