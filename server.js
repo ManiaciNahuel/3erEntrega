@@ -24,15 +24,16 @@ app.use(session({
   secret: 'secreto',
   resave: false,
   saveUninitialized: false,
- /*  cookie: {
-      maxAge: 60000
-  } */
+  cookie: {
+      maxAge: 600000
+  }
 }))
 
 app.use(cookieParser())
 app.use(passport.initialize());
 app.use(passport.session()); 
 app.set('view engine', 'ejs');
+app.use(express.static('public/images'));
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))

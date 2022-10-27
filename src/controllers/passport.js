@@ -5,9 +5,6 @@ const passport = require('passport');
 const getLogin = (req, res) => {
     if (req.isAuthenticated()) {
 		const { username, password, direccion, avatar } = req.user;
-        console.log(`Username login: ${username}`);
-        console.log(`Password: ${password}`);
-        console.log(`Direccion: ${direccion}`);
 		res.render('index', { usuario: {username, password, direccion, avatar} })
 	} else res.render("login");
 } 
@@ -15,9 +12,6 @@ const getLogin = (req, res) => {
 const getRegister = (req, res) => {
     if (req.isAuthenticated()) {
 		const { username, password, direccion, avatar } = req.user;
-        console.log(`Username reg: ${username}`);
-        console.log(`Password: ${password}`);
-        console.log(`Direccion: ${direccion}`);
 		res.render('index', { usuario: {username, password, direccion, avatar} })
 	} else res.render('register');
 }
@@ -32,17 +26,13 @@ const getFailRegister = (req, res) => {
 }
 
 const postLogin = (req, res) => {
-	const { username } = req.user;
-    console.log(username);
-	const {usa} = req.user;
-    res.render('index', { usa: usa })
+	const { username, password, direccion, avatar } = req.user;
+    res.render('index', { usuario: {username, password, direccion, avatar} })
 };
 
 const postRegister = (req, res) => {
-	const { username } = req.user;
-    console.log(username);
-	const {usa} = req.user;
-    res.render('index', { usa: usa })
+	const { username, password, direccion, avatar } = req.user;
+    res.render('index', { usuario: {username, password, direccion, avatar} })
 };
 
 const getFailLogin = (req, res) => {

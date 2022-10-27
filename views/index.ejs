@@ -4,17 +4,15 @@
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam voluptate repellat delectus, ipsum eveniet, corrupti nemo quod sequi natus officia soluta? At ipsum cupiditate suscipit, deleniti unde animi repellendus vel.</p>
         <h2>Usuario: <%= usuario.username %></h2>
         <h2>Constraseña: <%= usuario.password %></h2>
-        <img style="width: 90px; " src=<%=usuario.avatar %> />
+        <h2>Avatar: <%= usuario.avatar %></h2>
+        <img style="width: 90px;" src=<%= usuario.avatar %> />
       </div>
     <form class="form" action="/logout" method="post" role="form" autocomplete="off">
         <div class="form-group">
           <input class="btn btn-success my-3" style="background-color: rgba(199, 0, 0, 0.409)" type="submit" value="Logout">
         </div>
       </form>
-      <form class="form" action="/upload" method="post" role="form" autocomplete="off" enctype="multipart/form-data">
-          <input name="image" type="file">
-          <input type="submit" class="btn" >
-      </form>
+      
 </div>
 
 <script src="../src/controllers/passport.js"></script>

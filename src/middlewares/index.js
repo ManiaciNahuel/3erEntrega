@@ -1,6 +1,6 @@
 const passport = require('passport')
 const { Strategy: LocalStrategy } = require('passport-local');
-
+const bcrypt = require('bcrypt')
 const usuarios = []
 
 /* PASSPORT */
@@ -9,7 +9,7 @@ passport.use('register', new LocalStrategy({
   passReqToCallback: true
 }, (req, username, password, done) => {
 
-  const { direccion, edad, avatar, telefono } = req.body
+  const { direccion, edad, telefono } = req.body
 
   const usuario = usuarios.find(usuario => usuario.username == username)
   if (usuario) {
@@ -18,15 +18,14 @@ passport.use('register', new LocalStrategy({
 
   const user = {
     username,
-    password,
+    password: bcrypt.hashSync(password, bcrypt.genSaltSync(10)),
     direccion,
     edad, 
-    avatar, 
+    avatar: req.file.filename, 
     telefono 
-  }
-  
+  };
+  console.log(user); 
   usuarios.push(user)
-  //console.log(user);
   return done(null, user)
 }));
 
@@ -37,13 +36,11 @@ passport.use('login', new LocalStrategy((username, password, done) => {
   if (!user) {
     return done(null, false)
   }
-
-  if (user.password != password) {
+  
+  if (!bcrypt.compareSync(password, user.password)) {
     return done(null, false)
   }
 
-  user.contador = 0
-  //console.log(user);
   return done(null, user);
 }));
 
@@ -67,4 +64,14 @@ const auth = (req, res, next) => {
 	}
 };
 
-module.exports = {auth}
+const uploadFile = (req, res, next) => {
+	const file = req.file;
+	if (file) {
+		next();
+	} else {
+		res.send("No has subido ningun archivo <a href='/register'>Registrarse</a>");
+	}
+};
+
+
+module.exports = {auth, uploadFile}
