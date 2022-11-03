@@ -53,8 +53,6 @@ passport.deserializeUser((username, done) => {
   done(null, usuario);
 });
 
-/* SERVER */
-
 
 const auth = (req, res, next) => {
 	if (req.isAuthenticated()) {
@@ -64,14 +62,7 @@ const auth = (req, res, next) => {
 	}
 };
 
-const uploadFile = (req, res, next) => {
-	const file = req.file;
-	if (file) {
-		next();
-	} else {
-		res.send("No has subido ningun archivo <a href='/register'>Registrarse</a>");
-	}
-};
 
 
-module.exports = {auth, uploadFile}
+
+module.exports = {auth}

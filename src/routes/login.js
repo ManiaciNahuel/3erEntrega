@@ -1,7 +1,6 @@
 const Router = require('express');
 const passport = require('passport');
-const {auth, uploadFile} = require('../middlewares/index.js')
-const { postLogout, getFailLogin, getLogin, getRegister, getFailRegister, postLogin, getIndex, postRegister} = require('../controllers/passport.js')
+const { postLogout, getFailLogin, getLogin, getRegister, getFailRegister, getIndex} = require('../controllers/operations')
 const {upload} = require('../utils/multer.js')
 
 
@@ -17,16 +16,15 @@ routerP.post(
     '/login',
     passport.authenticate('login', 
     { failureRedirect: "/getFailLogin" }),
-    postLogin
+    getIndex
     )
     
 routerP.get('/getFailLogin', getFailLogin)
 routerP.post('/register',
     upload.single("avatar"),
-    uploadFile,
     passport.authenticate('register', 
         {failureRedirect: "/getFailRegister", successRedirect: '/' }),
-    postRegister
+    getIndex
 )
     
     //routerP.get('/getDatos', getDatos)

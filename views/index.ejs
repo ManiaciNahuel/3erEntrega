@@ -1,18 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3er Entrega</title>
+    <script src="main.js"></script>
+</head>
 <div class="container text-center my-3">
     <div class="jumbotron" style="background-color: rgb(114, 214, 250);color: white;">
-        <h1>INICIO</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam voluptate repellat delectus, ipsum eveniet, corrupti nemo quod sequi natus officia soluta? At ipsum cupiditate suscipit, deleniti unde animi repellendus vel.</p>
-        <h2>Usuario: <%= usuario.username %></h2>
-        <h2>Constraseña: <%= usuario.password %></h2>
-        <h2>Avatar: <%= usuario.avatar %></h2>
-        <img style="width: 90px;" src=<%= usuario.avatar %> />
-      </div>
+      <h1>INICIO</h1>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam voluptate repellat delectus, ipsum eveniet, corrupti nemo quod sequi natus officia soluta? At ipsum cupiditate suscipit, deleniti unde animi repellendus vel.</p>
+    </div>
+
+    <%- include('./info')-%>
+
     <form class="form" action="/logout" method="post" role="form" autocomplete="off">
-        <div class="form-group">
-          <input class="btn btn-success my-3" style="background-color: rgba(199, 0, 0, 0.409)" type="submit" value="Logout">
-        </div>
-      </form>
+      <div class="form-group">
+        <input class="btn btn-success my-3" style="margin: 10px;background-color: rgba(199, 0, 0, 0.409);border-radius: 3px;border-color: rgba(218, 52, 52, 0.549);cursor: pointer;" type="submit" value="Logout">
+      </div>
+    </form>
+    
+    <%- include('./productos')-%>
       
 </div>
 
-<script src="../src/controllers/passport.js"></script>
+<script src="../src/controllers/operations.js"></script>

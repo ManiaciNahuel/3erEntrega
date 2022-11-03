@@ -4,8 +4,9 @@ const cookieParser = require('cookie-parser')
 const passport = require('passport');
 const MongoStore = require('connect-mongo');
 const { routerP } = require('./src/routes/login');
-const { isAuth, auth } = require('./src/middlewares');
-const { getFailLogin, getIndex } = require('./src/controllers/passport');
+const { auth } = require('./src/middlewares/index');
+const { getFailLogin, getIndex } = require('./src/controllers/operations');
+
 const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true}
 require('dotenv').config()
 
@@ -40,6 +41,11 @@ app.use(express.urlencoded({ extended: true }))
 app.use(routerP)
 routerP.get('/', auth, getIndex)
 routerP.get('/login', auth, getFailLogin)
+
+
+
+/* SERVER */
+
 const PORT = process.env.PORT || 8080;
 const serverMode =  "FORK";
 

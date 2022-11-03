@@ -1,6 +1,5 @@
 const { Router } = require('express');
 const routerUser = Router()
-const { getAll } = require('../controllers/passport')
 
 
 routerUser.post('/', (req, res) => {
