@@ -2,27 +2,54 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3er Entrega</title>
-    <script src="main.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3er Entrega</title>
+  <script src="main.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
 </head>
 <div class="container text-center my-3">
-    <div class="jumbotron" style="background-color: rgb(114, 214, 250);color: white;">
-      <h1>INICIO</h1>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam voluptate repellat delectus, ipsum eveniet, corrupti nemo quod sequi natus officia soluta? At ipsum cupiditate suscipit, deleniti unde animi repellendus vel.</p>
-    </div>
+  <div class="jumbotron" style="background-color: rgb(114, 214, 250);color: white;">
+    <h1>INICIO</h1>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam voluptate repellat delectus, ipsum eveniet,
+      corrupti nemo quod sequi natus officia soluta? At ipsum cupiditate suscipit, deleniti unde animi repellendus vel.
+    </p>
+  </div>
 
-    <%- include('./info')-%>
+  <%- include('./info')-%>
 
     <form class="form" action="/logout" method="post" role="form" autocomplete="off">
       <div class="form-group">
-        <input class="btn btn-success my-3" style="margin: 10px;background-color: rgba(199, 0, 0, 0.409);border-radius: 3px;border-color: rgba(218, 52, 52, 0.549);cursor: pointer;" type="submit" value="Logout">
+        <input class="btn btn-success my-3"
+          style="margin: 10px;background-color: rgba(199, 0, 0, 0.409);border-radius: 3px;border-color: rgba(218, 52, 52, 0.549);cursor: pointer;"
+          type="submit" value="Logout">
       </div>
     </form>
-    
+
     <%- include('./productos')-%>
-      
+      <div style="position: fixed; bottom: 20px; right: 20px;">
+        <h1>Mensajería</h1>
+        <div id="messages_container"></div>
+        <form onsubmit="return addMessage()" autocomplete="off">
+          <br>
+          <input type="text" id="mail" placeholder="Mail">
+          <br>
+          <input type="text" id="nombre" placeholder="Nombre">
+          <br>
+          <input type="text" id="apellido" placeholder="Apellido">
+          <br>
+          <input type="number" id="edad" placeholder="Edad">
+          <br>
+          <input type="text" id="alias" placeholder="Alias">
+          <br>
+          <input type="text" id="avatar" placeholder="Avatar">
+          <br>
+          <input type="text" id="texto" placeholder="Mensaje">
+          <br>
+          <input type="submit" value="Enviar">
+        </form>
+      </div>
 </div>
 
+<script src="../server.js"></script>
 <script src="../src/controllers/operations.js"></script>

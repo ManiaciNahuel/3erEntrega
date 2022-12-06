@@ -1,7 +1,10 @@
-const {listarProductos} = require('../persistencia/operaciones.js')
+const {listarProductos, guardarProd} = require('../persistencia/operaciones.js')
 
 function listProductos() {
     return listarProductos()
 }
+function guardarProduct(producto) {
+    return guardarProd(producto)
+}
 
-module.exports = {listProductos}
+module.exports = {listProductos, guardarProduct}

@@ -1,9 +1,24 @@
 <div>
-    <h1 style="display:flex; justify-content: center; margin:50px">Lista de productos</h1>
+    <div style="position: fixed; bottom: 20px; left: 20px;">
+        <h2>Agregar producto</h2>
+        <form action="/productos" method="post" onsubmit="return addProduct()">
+            <label for="prod_name">Nombre producto:</label><br>
+            <input type="text" id="prod_name" name="prod_name">
+            <br>
+            <label for="precio">Precio:</label><br>
+            <input type="text" id="precio" name="precio">
+            <br>
+            <label for="imagen">Url de la imagen:</label><br>
+            <input type="text" id="imagen" name="imagen">
+            <br>
+            <button>Enviar</button>
+        </form>
+    </div>
+    <h2 style="display:flex; justify-content: center; margin:50px">Lista de productos</h2>
 
-    <section id="product_container" style="display:flex; justify-content: center; column-gap: 30px; flex-wrap: wrap; margin: 30px">
+    <section id="product_container"
+        style="display:flex; justify-content: center; column-gap: 30px; flex-wrap: wrap; margin: 30px">
         <%if (productos) { %>
-            <h1 style="display:flex; justify-content: center; margin:50px">Lista de productos</h1>
             <section style="display:flex; justify-content: center; column-gap: 30px; flex-wrap: wrap; margin: 30px">
                 <% for (const product of productos) {%>
                     <article style="margin-bottom: 40px">
@@ -16,10 +31,10 @@
                         </p>
                     </article>
                     <br>
-                <%};%>
+                    <%};%>
             </section>
-        <% } else { %>
-            <h1 style="display:flex; justify-content: center; margin:50px">No hay productos</h1>
-        <% } %>
+            <% } else { %>
+                <h2 style="display:flex; justify-content: center; margin:50px">No hay productos</h2>
+                <% } %>
     </section>
 </div>

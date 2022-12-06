@@ -1,11 +1,22 @@
-const {ContainerProductos} = require("./containers/ContainerProductos.js")
+const ContenedorMg = require("./containers/ContainerProductos.js");
+const { ContainerProductos } = require("./containers/ContainerProductos.js")
 
-const contenedorPr = new ContainerProductos('productos.txt')
+const contenedorPr = new ContenedorMg
 
 function listarProductos() {
     return contenedorPr.getAll()
 }
 
-module.exports = {listarProductos}
+function guardarProd(producto) {
+    /* contenedorPr.upload(producto).then(
+        resp => {
+            console.log(resp);
+            return resp;
+        }
+    ) */
+    return console.log("guardar");
+}
+
+module.exports = { listarProductos, guardarProd }
 
 
